@@ -1,0 +1,598 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Korobki39 — Поставки для HoReCa</title>
+
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --white:   #FFFFFF;
+    --bg:      #FAFAF8;
+    --bg2:     #F4F1EB;
+    --bg3:     #EDE8DE;
+    --amber:   #66cc66;
+    --amber2:  #E8920D;
+    --amber-bg:#FEF4E1;
+    --dark:    #555555;
+    --text:    #2C2416;
+    --muted:   #7A6E5E;
+    --light:   #B0A490;
+    --border:  #E2D9C8;
+    --border2: #CFC4B0;
+    --radius:  12px;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: Verdana, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    font-size: 16px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(250,250,248,0.94);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 5vw;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 64px;
+  }
+  .nav-logo {
+    font-family: Verdana, sans-serif;
+    font-size: 20px; font-weight: 700;
+    color: var(--amber);
+    text-decoration: none; letter-spacing: .3px;
+  }
+  .nav-logo span { color: var(--amber); }
+  .nav-links {
+    display: flex; gap: 32px; align-items: center;
+  }
+  .nav-links a {
+    font-size: 14px; color: #555555;
+    text-decoration: none;
+    transition: color .2s;
+  }
+  .nav-links a:hover { color: var(--text); }
+  .nav-cta {
+    background: var(--amber);
+    color: #fff;
+    font-family: Verdana, sans-serif;
+    font-weight: 500; font-size: 14px;
+    border: none; border-radius: 8px;
+    padding: 9px 22px; cursor: pointer;
+    text-decoration: none;
+    transition: background .2s, transform .15s;
+  }
+  .nav-cta:hover { background: var(--amber2); transform: translateY(-1px); }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 86vh;
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 80px 5vw 60px;
+    background: var(--white);
+    position: relative; overflow: hidden;
+  }
+  .hero::after {
+    content: '';
+    position: absolute; bottom: 0; right: 0;
+    width: 50%; height: 100%;
+    background: radial-gradient(ellipse 80% 70% at 80% 50%, var(--amber-bg) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-inner { position: relative; z-index: 1; }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--amber-bg);
+    border: 1px solid #F0D090;
+    border-radius: 99px;
+    padding: 5px 16px;
+    font-size: 16px; font-weight: 500;
+    color: var(--amber);
+    margin-bottom: 28px;
+    width: fit-content;
+  }
+  .hero-badge::before {
+    content: '';
+    width: 7px; height: 7px; border-radius: 50%;
+    background: var(--amber);
+    animation: pulse 2s ease-in-out infinite;
+  }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.35} }
+
+  .hero h1 {
+    font-family: Verdana, sans-serif;
+    font-size: clamp(36px, 5.2vw, 64px);
+    line-height: 1.13;
+    color: var(--dark);
+    max-width: 760px;
+    font-weight: 700;
+    margin-bottom: 22px;
+  }
+  .hero h1 em { font-style: normal; color: var(--amber); }
+  .hero-sub {
+    font-size: clamp(16px, 1.7vw, 18px);
+    color: var(--muted);
+    max-width: 520px;
+    line-height: 1.75;
+    font-weight: 300;
+    margin-bottom: 40px;
+  }
+  .hero-btns { display: flex; gap: 14px; flex-wrap: wrap; }
+  .btn-primary {
+    background: var(--amber);
+    color: #fff;
+    font-weight: 500; font-size: 16px;
+    padding: 14px 34px; border-radius: 10px;
+    border: none; cursor: pointer; text-decoration: none;
+    transition: background .2s, transform .15s, box-shadow .2s;
+    box-shadow: 0 4px 18px rgba(196,122,10,.28);
+  }
+  .btn-primary:hover { background: var(--amber2); transform: translateY(-2px); box-shadow: 0 8px 28px rgba(196,122,10,.35); }
+  .btn-secondary {
+    background: transparent;
+    color: var(--text);
+    font-weight: 400; font-size: 16px;
+    padding: 13px 30px; border-radius: 10px;
+    border: 1.5px solid var(--border2); cursor: pointer;
+    text-decoration: none;
+    transition: background .2s, border-color .2s;
+  }
+  .btn-secondary:hover { background: var(--bg2); border-color: var(--muted); }
+
+  .hero-stats {
+    display: flex; gap: 48px; flex-wrap: wrap;
+    margin-top: 60px; padding-top: 40px;
+    border-top: 1px solid var(--border);
+  }
+  .stat-num {
+    font-family: Verdana, sans-serif;
+    font-size: 32px; font-weight: 700;
+    color: var(--amber);
+  }
+  .stat-label { font-size: 13px; color: var(--muted); margin-top: 2px; }
+
+  /* ── SECTION BASE ── */
+  section { padding: 80px 5vw; }
+  .section-label {
+    font-size: 20px; font-weight: 700; letter-spacing: 2px;
+    text-transform: uppercase; color: var(--amber);
+    margin-bottom: 14px;
+  }
+  .section-title {
+    font-family: Verdana, sans-serif;
+    font-size: clamp(22px, 3.2vw, 38px);
+    font-weight: 700; color: var(--dark);
+    line-height: 1.2;
+    margin-bottom: 14px;
+  }
+  .section-sub { font-size: 16px; color: var(--muted); max-width: 520px; line-height: 1.7; font-weight: 300; }
+
+  /* ── WHO WE SERVE ── */
+  .who { background: var(--bg2); }
+  .clients-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 10px; margin-top: 48px;
+  }
+  .client-card {
+    background: var(--white);
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius);
+    padding: 26px 16px 20px;
+    text-align: center;
+    transition: border-color .2s, transform .2s, box-shadow .2s;
+  }
+  .client-card:hover { border-color: var(--amber); transform: translateY(-3px); box-shadow: 0 6px 20px rgba(196,122,10,.1); }
+  .client-icon { font-size: 30px; margin-bottom: 10px; display: block; }
+  .client-name { font-size: 14px; font-weight: 500; color: var(--text); }
+
+  /* ── PRODUCTS ── */
+  .products { background: var(--white); }
+  .products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+    gap: 12px; margin-top: 48px;
+  }
+  .product-card {
+    background: var(--bg);
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px 18px;
+    display: flex; align-items: flex-start; gap: 14px;
+    transition: border-color .2s, background .2s;
+  }
+  .product-card:hover { border-color: var(--amber2); background: var(--amber-bg); }
+  .product-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--amber); margin-top: 7px; flex-shrink: 0;
+  }
+  .product-name { font-size: 15px; font-weight: 500; color: var(--dark); }
+  .product-desc { font-size: 13px; color: var(--muted); margin-top: 3px; }
+
+  /* ── BENEFITS ── */
+  .benefits { background: var(--bg2); }
+  .benefits-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 14px; margin-top: 48px;
+  }
+  .benefit-card {
+    background: var(--white);
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius);
+    padding: 28px 24px;
+    position: relative; overflow: hidden;
+    transition: border-color .2s, box-shadow .2s;
+  }
+  .benefit-card:hover { border-color: var(--amber); box-shadow: 0 4px 20px rgba(196,122,10,.1); }
+  .benefit-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    background: linear-gradient(90deg, var(--amber), var(--amber2), transparent);
+    opacity: 0; transition: opacity .25s;
+  }
+  .benefit-card:hover::before { opacity: 1; }
+  .benefit-num {
+    font-family: Verdana, sans-serif;
+    font-size: 40px; font-weight: 700;
+    color: var(--bg3);
+    line-height: 1; margin-bottom: 12px;
+  }
+  .benefit-title { font-size: 16px; font-weight: 500; color: var(--dark); margin-bottom: 8px; }
+  .benefit-text { font-size: 14px; color: var(--muted); line-height: 1.65; font-weight: 300; }
+
+  /* ── PROCESS ── */
+  .process { background: var(--white); }
+  .process-steps {
+    display: flex; flex-direction: column;
+    margin-top: 48px; max-width: 660px;
+  }
+  .process-step {
+    display: flex; gap: 26px; align-items: flex-start;
+    padding: 28px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .process-step:last-child { border-bottom: none; }
+  .step-num {
+    font-family: Verdana, sans-serif;
+    font-size: 14px; font-weight: 700;
+    color: var(--amber);
+    width: 36px; height: 36px;
+    border: 1.5px solid #F0D090;
+    border-radius: 50%; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    background: var(--amber-bg);
+    margin-top: 2px;
+  }
+  .step-title { font-size: 16px; font-weight: 500; color: var(--dark); margin-bottom: 5px; }
+  .step-text { font-size: 14px; color: var(--muted); font-weight: 300; line-height: 1.7; }
+
+  /* ── FORM ── */
+  .form-section {
+    background: var(--dark);
+    position: relative; overflow: hidden;
+  }
+  .form-section::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 70% 60% at 50% 100%, rgba(196,122,10,.15) 0%, transparent 65%);
+    pointer-events: none;
+  }
+  .form-wrap {
+    max-width: 600px; margin: 0 auto; text-align: center;
+    position: relative; z-index: 1;
+  }
+  .form-wrap .section-label { color: var(--amber); }
+  .form-wrap .section-title { color: var(--amber2); text-align: center; }
+  .form-wrap .section-sub { color: #F5EDD8; text-align: center; margin: 0 auto; }
+  .form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px; margin-top: 36px;
+  }
+  .form-group { display: flex; flex-direction: column; gap: 6px; text-align: left; }
+  .form-group.full { grid-column: 1 / -1; }
+  .form-group label { font-size: 13px; font-weight: 500; color: #8A7E6E; }
+  .form-group input, .form-group select {
+    background: rgba(255,255,255,.07);
+    border: 1px solid rgba(196,122,10,.3);
+    border-radius: 9px;
+    color: #F5EDD8;
+    font-family: Verdana, sans-serif;
+    font-size: 15px;
+    padding: 13px 16px;
+    outline: none;
+    transition: border-color .2s, background .2s;
+    appearance: none;
+  }
+  .form-group input::placeholder { color: rgba(138,126,110,.5); }
+  .form-group input:focus, .form-group select:focus {
+    border-color: var(--amber2);
+    background: rgba(196,122,10,.06);
+  }
+  .form-group select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238A7E6E' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat; background-position: right 14px center;
+    padding-right: 38px; cursor: pointer;
+    background-color: rgba(255,255,255,.07);
+  }
+  .form-group select option { background: #231E15; color: #F5EDD8; }
+  .form-submit {
+    grid-column: 1 / -1;
+    background: var(--amber);
+    color: #fff;
+    font-family: Verdana, sans-serif;
+    font-weight: 500; font-size: 17px;
+    border: none; border-radius: 10px;
+    padding: 16px; width: 100%; cursor: pointer;
+    transition: background .2s, transform .15s, box-shadow .2s;
+    box-shadow: 0 4px 22px rgba(196,122,10,.4);
+    margin-top: 6px;
+  }
+  .form-submit:hover { background: var(--amber2); transform: translateY(-2px); box-shadow: 0 8px 32px rgba(196,122,10,.5); }
+  .form-note { font-size: 13px; color: var(--muted); margin-top: 14px; text-align: center; }
+  .form-success { display: none; text-align: center; padding: 40px 20px; }
+  .form-success .check {
+    width: 60px; height: 60px; border-radius: 50%;
+    background: rgba(196,122,10,.15); border: 1.5px solid var(--amber);
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 20px; font-size: 26px; color: var(--amber);
+  }
+  .form-success h3 { font-family: Verdana, sans-serif; font-size: 24px; color: #F5EDD8; margin-bottom: 10px; }
+  .form-success p { color: #8A7E6E; font-size: 15px; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--white);
+    border-top: 1px solid var(--border);
+    padding: 36px 5vw;
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 20px;
+  }
+  .footer-logo {
+    font-family: Verdana, sans-serif;
+    font-size: 20px; font-weight: 700;
+    color: var(--amber);
+    text-decoration: none; letter-spacing: .3px;
+  }
+  .footer-logo span { color: var(--amber); }
+  .footer-contacts { display: flex; flex-direction: column; gap: 4px; text-align: right; }
+  .footer-contacts a { font-size: 14px; color: var(--muted); text-decoration: none; transition: color .2s; }
+  .footer-contacts a:hover { color: var(--amber); }
+  .footer-copy { font-size: 12px; color: var(--light); width: 100%; text-align: center; padding-top: 20px; border-top: 1px solid var(--border); }
+
+  .divider { height: 1px; background: var(--border); margin: 0; }
+
+  @media (max-width: 600px) {
+    .form-grid { grid-template-columns: 1fr; }
+    .nav-links { display: none; }
+    .hero-stats { gap: 28px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="https://korobki39.ru">КОРОБКИ<span>39</span></a>
+  <div class="nav-links">
+    <a href="#who">Кому подходит</a>
+    <a href="#products">Ассортимент</a>
+    <a href="#benefits">Условия</a>
+  </div>
+  <a class="nav-cta" href="#form">Получить прайс</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-badge">Калининград — доставка по городу бесплатно</div>
+    <h1>Упаковка и расходники<br>для вашего <em>HoReCa</em>-бизнеса</h1>
+    <p class="hero-sub">
+      Оптовые цены — сразу, без минимального объёма. Быстрая доставка по Калининграду. Резерв ваших позиций на складе.
+    </p>
+    <div class="hero-btns">
+      <a href="#form" class="btn-primary">Оставить заявку</a>
+      <a href="https://s.siteapi.org/27d307544fe830a.ru/docs/judvd6asgy8ccw8kc0k40888wgowcg" class="btn-secondary">Каталог Хорека</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-item">
+        <div class="stat-num">от&nbsp;4000₽</div>
+        <div class="stat-label">бесплатная доставка</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">1200+</div>
+        <div class="stat-label">позиций в наличии</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">2-3&nbsp;часа</div>
+        <div class="stat-label">обработка заказа</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- WHO -->
+<section class="who" id="who">
+  <div class="section-label">Кому подходит</div>
+  <h2 class="section-title">Мы работаем<br>со всем HoReCa-сектором</h2>
+  <p class="section-sub">Заключаем договор и устанавливаем оптовые условия с любым форматом предприятия.</p>
+  <div class="clients-grid">
+    <div class="client-card"><span class="client-icon">☕</span><div class="client-name">Кофейни</div></div>
+    <div class="client-card"><span class="client-icon">🍽️</span><div class="client-name">Рестораны</div></div>
+    <div class="client-card"><span class="client-icon">🍕</span><div class="client-name">Кафе</div></div>
+    <div class="client-card"><span class="client-icon">🎂</span><div class="client-name">Кондитерские</div></div>
+    <div class="client-card"><span class="client-icon">🛵</span><div class="client-name">Доставки еды</div></div>
+    <div class="client-card"><span class="client-icon">🍔</span><div class="client-name">Фастфуд</div></div>
+    <div class="client-card"><span class="client-icon">🥐</span><div class="client-name">Пекарни</div></div>
+    <div class="client-card"><span class="client-icon">🏨</span><div class="client-name">Отели</div></div>
+  </div>
+</section>
+
+<!-- PRODUCTS -->
+<section class="products" id="products">
+  <div class="section-label">Ассортимент</div>
+  <h2 class="section-title">Всё, что нужно<br>для упаковки и сервиса</h2>
+  <p class="section-sub">Широкий ассортимент в постоянном наличии. Популярные позиции резервируем для постоянных клиентов.</p>
+  <div class="products-grid">
+    <div class="product-card"><div class="product-dot"></div><div><div class="product-name">Упаковка навынос</div><div class="product-desc">Боксы, лотки, контейнеры</div></div></div>
+    <div class="product-card"><div class="product-dot"></div><div><div class="product-name">Крафт-упаковка</div><div class="product-desc">Пакеты, коробки, стаканы</div></div></div>
+    <div class="product-card"><div class="product-dot"></div><div><div class="product-name">Коробки для пиццы</div><div class="product-desc">Стандарт и нестандарт</div></div></div>
+    <div class="product-card"><div class="product-dot"></div><div><div class="product-name">Стаканы и крышки</div><div class="product-desc">Горячие и холодные напитки</div></div></div>
+    <div class="product-card"><div class="product-dot"></div><div><div class="product-name">Упаковка для десертов</div><div class="product-desc">Пирожные, торты, суши</div></div></div>
+    <div class="product-card"><div class="product-dot"></div><div><div class="product-name">Пластиковые контейнеры</div><div class="product-desc">Суп, салаты, горячее</div></div></div>
+    <div class="product-card"><div class="product-dot"></div><div><div class="product-name">Бумажные пакеты</div><div class="product-desc">Крафт и белые</div></div></div>
+    <div class="product-card"><div class="product-dot"></div><div><div class="product-name">Брендирование</div><div class="product-desc">Логотип на упаковке</div></div></div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- BENEFITS -->
+<section class="benefits" id="benefits">
+  <div class="section-label">Условия для HoReCa</div>
+  <h2 class="section-title">Почему выбирают нас</h2>
+  <div class="benefits-grid">
+    <div class="benefit-card">
+      <div class="benefit-num">01</div>
+      <div class="benefit-title">Оптовые цены сразу</div>
+      <div class="benefit-text">При заключении договора — оптовые условия с первого заказа, вне зависимости от объёма.</div>
+    </div>
+    <div class="benefit-card">
+      <div class="benefit-num">02</div>
+      <div class="benefit-title">Бесплатная доставка</div>
+      <div class="benefit-text">По Калининграду — при заказе от 4 000 ₽. Без скрытых условий и ограничений.</div>
+    </div>
+    <div class="benefit-card">
+      <div class="benefit-num">03</div>
+      <div class="benefit-title">Резерв на складе</div>
+      <div class="benefit-text">Для постоянных клиентов держим запас ходовых позиций — ваши товары всегда есть в наличии.</div>
+    </div>
+    <div class="benefit-card">
+      <div class="benefit-num">04</div>
+      <div class="benefit-title">Личный менеджер</div>
+      <div class="benefit-text">Поможем подобрать оптимальную упаковку под ваши блюда и формат работы.</div>
+    </div>
+    <div class="benefit-card">
+      <div class="benefit-num">05</div>
+      <div class="benefit-title">Работаем по договору</div>
+      <div class="benefit-text">Полный документооборот, все необходимые закрывающие документы для вашей бухгалтерии.</div>
+    </div>
+    <div class="benefit-card">
+      <div class="benefit-num">06</div>
+      <div class="benefit-title">Брендирование</div>
+      <div class="benefit-text">Нанесём ваш логотип на пакеты и коробки для пиццы — особые условия для партнёров.</div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="process">
+  <div class="section-label">Как начать</div>
+  <h2 class="section-title">Три шага до первой<br>поставки</h2>
+  <div class="process-steps">
+    <div class="process-step">
+      <div class="step-num">1</div>
+      <div class="step-content">
+        <div class="step-title">Оставьте заявку или позвоните нам</div>
+        <div class="step-text">Расскажите о вашем заведении и потребностях. Мы свяжемся в течение 1 часа в рабочее время.</div>
+      </div>
+    </div>
+    <div class="process-step">
+      <div class="step-num">2</div>
+      <div class="step-content">
+        <div class="step-title">Получите персональный прайс</div>
+        <div class="step-text">Пришлём оптовый прайс-лист и поможем выбрать нужные позиции. Подберём аналоги под ваш бюджет.</div>
+      </div>
+    </div>
+    <div class="process-step">
+      <div class="step-num">3</div>
+      <div class="step-content">
+        <div class="step-title">Заключим договор и начнём поставки</div>
+        <div class="step-text">Оформим документы, согласуем график и запустим регулярные поставки на ваш объект.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FORM -->
+<section class="form-section" id="form">
+  <div class="form-wrap">
+    <div class="section-label" style="text-align:center">Получить прайс</div>
+    <h2 class="section-title">Оставьте заявку —<br>ответим за 1 час</h2>
+    <p class="section-sub">Пришлём оптовый прайс-лист и персональные условия для вашего бизнеса.</p>
+    <p class="section-sub">
+  Или, просто, позвоните/напишите нам на 
+  <span class="copy-phone-container">
+    <a href="tel:+79217101658" class="phone-link">+7(921)710-16-58</a>
+    
+  </span> 
+  в Макс, Телеграм, VK.
+</p>
+
+    <div id="lead-form">
+      <div class="form-grid" style="text-align: center; display: block;">
+        
+         <a href=https://korobki39.ru/#feedback class="btn-primary">Оставить заявку</a>
+        
+      </div>
+      <p class="form-note">Нажимая кнопку, вы соглашаетесь на обработку персональных данных</p>
+    </div>
+
+    <div class="form-success" id="form-success">
+      <div class="check">✓</div>
+      <h3>Заявка принята!</h3>
+      <p>Свяжемся с вами в течение часа<br>и пришлём прайс-лист.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+<a href="https://korobki39.ru" class="footer-logo" style="text-decoration: none; display: inline-block;">
+  КОРОБКИ<span>39</span>
+</a>
+  <div class="footer-contacts">
+    <a href="https://yandex.ru/maps/-/CHVaYILS" target="_blank">ул. Горького, 207</a>
+    <a href="https://yandex.ru/maps/-/CHfvjXN9" target="_blank">ул. Магнитная, 4</a>
+    <a href="https://max.ru/+79217101658" target="_blank">Написать в МАКС</a>
+    <a href="https://t.me/+79217101658" target="_blank">Написать в Телеграм</a>
+    <a href="http://vk.com/korobki39" target="_blank">Написать в ВКонтакте</a>
+    <a href="https://korobki39.ru">korobki39.ru</a>
+  </div>
+  <div class="footer-copy">© 2026 Korobki39.ru — поставщик упаковки для HoReCa в Калининграде</div>
+</footer>
+
+<script>
+function submitForm() {
+  const name = document.getElementById('f-name').value.trim();
+  const phone = document.getElementById('f-phone').value.trim();
+  if (!name || !phone) {
+    if (!name) document.getElementById('f-name').style.borderColor = '#E05050';
+    if (!phone) document.getElementById('f-phone').style.borderColor = '#E05050';
+    return;
+  }
+  document.getElementById('lead-form').style.display = 'none';
+  document.getElementById('form-success').style.display = 'block';
+}
+['f-name','f-phone'].forEach(id => {
+  document.getElementById(id).addEventListener('input', function() {
+    this.style.borderColor = '';
+  });
+});
+</script>
+</body>
+</html>
